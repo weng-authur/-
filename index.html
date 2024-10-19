@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在跳转...</title>
+    <script type="text/javascript">
+        // 解析 URL 参数
+        function getParameterByName(name) {
+            const url = window.location.href;
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // 获取传递的 linkId 参数
+        const linkId = getParameterByName('linkId');
+        
+        if (linkId) {
+            // 构造淘宝商品推广链接
+            const taobaoUrl = `https://s.click.taobao.com/${linkId}`;
+
+            // 延迟跳转（3秒后跳转）
+            setTimeout(function() {
+                window.location.href = taobaoUrl;
+            }, 3000);
+        } else {
+            document.write("未找到有效的商品链接，无法跳转！");
+        }
+    </script>
+</head>
+<body>
+    <p>即将跳转到商品页面...</p>
+    <p>如果没有自动跳转，请 <a id="manualLink" href="#">点击这里</a>。</p>
+    <script type="text/javascript">
+        // 手动跳转链接
+        if (linkId) {
+            document.getElementById('manualLink').href = `https://s.click.taobao.com/${linkId}`;
+        }
+    </script>
+</body>
+</html>
